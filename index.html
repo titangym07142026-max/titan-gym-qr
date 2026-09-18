@@ -3,60 +3,74 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>TITAN GYM Member QR</title>
+
+<title>Titan Gym Member Verification</title>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
 <style>
 body{
-  margin:0;
-  padding:20px;
-  background:#f3f4f6;
-  font-family:Arial, sans-serif;
+    margin:0;
+    padding:20px;
+    background:#111827;
+    font-family:Arial, sans-serif;
 }
 
 .card{
-  max-width:420px;
-  margin:auto;
-  background:white;
-  padding:25px;
-  border-radius:20px;
-  box-shadow:0 5px 20px rgba(0,0,0,.15);
+    max-width:420px;
+    margin:auto;
+    background:white;
+    border-radius:20px;
+    padding:25px;
+    box-shadow:0 10px 30px rgba(0,0,0,.4);
 }
 
 .logo{
-  text-align:center;
-  font-size:30px;
-  font-weight:900;
-  margin-bottom:10px;
+    text-align:center;
+    font-size:32px;
+    font-weight:900;
+    color:#dc2626;
 }
 
-.subtitle{
-  text-align:center;
-  font-size:18px;
-  font-weight:bold;
-  margin-bottom:20px;
+.title{
+    text-align:center;
+    font-size:20px;
+    font-weight:bold;
+    margin:10px 0;
+}
+
+.badge{
+    text-align:center;
+    background:#dcfce7;
+    color:#166534;
+    padding:10px;
+    border-radius:20px;
+    font-weight:bold;
+    margin:15px 0;
+}
+
+.qrbox{
+    text-align:center;
+    margin:20px 0;
 }
 
 .details{
-  background:#f9fafb;
-  border-radius:15px;
-  padding:15px;
+    background:#f8fafc;
+    border-radius:15px;
+    padding:15px;
 }
 
 .row{
-  padding:10px 0;
-  border-bottom:1px solid #ddd;
+    padding:10px 0;
+    border-bottom:1px solid #ddd;
 }
 
 .row:last-child{
-  border-bottom:none;
+    border-bottom:none;
 }
 
 .label{
-  font-weight:bold;
-}
-
-.status{
-  font-weight:bold;
+    font-weight:bold;
 }
 </style>
 
@@ -70,9 +84,21 @@ body{
 TITAN GYM
 </div>
 
-<div class="subtitle">
-Member Details
+<div class="title">
+Member Verification
 </div>
+
+<div class="badge">
+VERIFIED MEMBER
+</div>
+
+
+<!-- QR CODE NG MEMBER LINK -->
+<div class="qrbox">
+    <div id="memberQR"></div>
+    <p>Scan Member Link</p>
+</div>
+
 
 <div class="details">
 
@@ -98,7 +124,7 @@ Member Details
 
 <div class="row">
 <span class="label">Status:</span>
-<span id="status" class="status">-</span>
+<span id="status">-</span>
 </div>
 
 <div class="row">
@@ -115,23 +141,32 @@ Member Details
 
 const params = new URLSearchParams(window.location.search);
 
-document.getElementById("name").textContent =
+
+document.getElementById("name").innerHTML =
 params.get("name") || "-";
 
-document.getElementById("id").textContent =
+document.getElementById("id").innerHTML =
 params.get("id") || "-";
 
-document.getElementById("membership").textContent =
+document.getElementById("membership").innerHTML =
 params.get("membership") || "-";
 
-document.getElementById("due").textContent =
+document.getElementById("due").innerHTML =
 params.get("due") || "-";
 
-document.getElementById("status").textContent =
+document.getElementById("status").innerHTML =
 params.get("status") || "-";
 
-document.getElementById("days").textContent =
+document.getElementById("days").innerHTML =
 params.get("days") || "-";
+
+
+// Gumawa ng QR ng mismong member link
+new QRCode(document.getElementById("memberQR"),{
+    text: window.location.href,
+    width:180,
+    height:180
+});
 
 </script>
 
